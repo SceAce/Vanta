@@ -1,6 +1,6 @@
 {
   "project": "Vanta",
-  "updated_at": "2026-04-26T11:55:11Z",
+  "updated_at": "2026-04-29T13:55:04Z",
   "entries": [
     {
       "feature_id": "governance-api-key-local-storage",
@@ -36,7 +36,7 @@
       "feature_id": "vanta-core-runtime",
       "status": "in_progress",
       "verification_status": "unverified",
-      "evidence_ref": "cargo test --workspace; cargo clippy --workspace --all-targets -- -D warnings; cargo run -p vanta-cli -- init /tmp/vanta-smoke --mode ctf",
+      "evidence_ref": "cargo test --workspace; cargo clippy --workspace --all-targets -- -D warnings; VANTA_HOME=/tmp/vanta-home-smoke cargo run -q -p vanta-cli -- solve /tmp/vanta-solve-smoke/case.json",
       "history": [
         {
           "timestamp": "2026-04-26T11:55:11Z",
@@ -44,6 +44,49 @@
           "to_status": "in_progress",
           "actor": "codex",
           "reason": "Added the first runnable Vanta Core skeleton with workspace initialization and CLI status checks."
+        },
+        {
+          "timestamp": "2026-04-29T13:33:48Z",
+          "from_status": "in_progress",
+          "to_status": "in_progress",
+          "actor": "codex",
+          "reason": "Added pwn case schema loading, canonical workspace case writing, and deterministic run artifact initialization."
+        },
+        {
+          "timestamp": "2026-04-29T13:55:04Z",
+          "from_status": "in_progress",
+          "to_status": "in_progress",
+          "actor": "codex",
+          "reason": "Added provider config, model fallback, Python worker JSON-RPC client, and solve orchestration artifacts."
+        }
+      ]
+    },
+    {
+      "feature_id": "vanta-pwn-workflow",
+      "status": "in_progress",
+      "verification_status": "unverified",
+      "evidence_ref": "tools/pwn-worker/tests/test_jsonrpc_worker.py; crates/core/src/solve.rs; crates/core/src/provider.rs; /tmp/vanta-solve-smoke/.vanta/pwn/runs/*/analysis.json",
+      "history": [
+        {
+          "timestamp": "2026-04-29T12:50:14Z",
+          "from_status": "planned",
+          "to_status": "in_progress",
+          "actor": "codex",
+          "reason": "Added the first Python pwn worker JSON-RPC contract for IDA MCP pseudocode, pwno-mcp GDB integration, and local GDB fallback."
+        },
+        {
+          "timestamp": "2026-04-29T13:33:48Z",
+          "from_status": "in_progress",
+          "to_status": "in_progress",
+          "actor": "codex",
+          "reason": "Added high-level pwn workflow method contracts for static scan, breakpoint plan, dynamic verify, PoC draft, and pattern matching."
+        },
+        {
+          "timestamp": "2026-04-29T13:55:04Z",
+          "from_status": "in_progress",
+          "to_status": "in_progress",
+          "actor": "codex",
+          "reason": "Connected solve to worker static evidence, model analysis, conditional GDB dynamic verification, and analysis.json output."
         }
       ]
     }

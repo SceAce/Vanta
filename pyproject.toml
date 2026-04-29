@@ -15,8 +15,8 @@ dev = ["pytest>=8.3", "ruff>=0.8", "mypy>=1.14"]
 package = false
 
 [tool.pytest.ini_options]
-pythonpath = ["tools/trellis-tools/src"]
-testpaths = ["tools/trellis-tools/tests"]
+pythonpath = ["tools/trellis-tools/src", "tools/pwn-worker/src"]
+testpaths = ["tools/trellis-tools/tests", "tools/pwn-worker/tests"]
 
 [tool.ruff]
 line-length = 100
@@ -30,4 +30,4 @@ python_version = "3.13"
 warn_return_any = true
 warn_unused_configs = true
 strict = true
-mypy_path = ["tools/trellis-tools/src"]
+mypy_path = ["tools/trellis-tools/src", "tools/pwn-worker/src"]

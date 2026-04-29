@@ -43,6 +43,27 @@ pub enum VantaError {
         source: serde_json::Error,
     },
 
+    /// YAML parsing failed.
+    #[error("yaml operation failed for {path}: {source}")]
+    Yaml {
+        /// Path involved in the failed operation.
+        path: PathBuf,
+        /// Original YAML error.
+        source: serde_yaml::Error,
+    },
+
+    /// Input validation failed.
+    #[error("validation failed: {0}")]
+    Validation(String),
+
+    /// HTTP operation failed.
+    #[error("http operation failed: {0}")]
+    Http(String),
+
+    /// A subprocess failed.
+    #[error("process operation failed: {0}")]
+    Process(String),
+
     /// Timestamp formatting failed.
     #[error("timestamp formatting failed: {0}")]
     TimeFormat(#[from] time::error::Format),
@@ -218,7 +239,9 @@ fn create_workspace_dirs(paths: &WorkspacePaths) -> VantaResult<()> {
     create_dir_all(paths.pwn_dir.join("exploits"))?;
     create_dir_all(paths.pwn_dir.join("reports"))?;
     create_dir_all(paths.pwn_dir.join("gdb"))?;
-    create_dir_all(paths.pwn_dir.join("ida"))
+    create_dir_all(paths.pwn_dir.join("ida"))?;
+    create_dir_all(paths.pwn_dir.join("runs"))?;
+    create_dir_all(paths.pwn_dir.join("knowledge"))
 }
 
 fn ensure_json_file(path: &Path, schema_version: &str) -> VantaResult<()> {

@@ -83,12 +83,22 @@ Python worker 通过 JSON-RPC over stdio 与 Rust runtime 通信。
   facts.json
   tool-runs.jsonl
   pwn/
+    case.json
     crashes/
     payloads/
     exploits/
     reports/
     gdb/
     ida/
+    runs/
+      <run_id>/
+        run.json
+        static-scan.json
+        breakpoint-plan.json
+        dynamic-verify.json
+        poc-draft.json
+    knowledge/
+      patterns.json
 ```
 
 所有关键文件带 `schema_version`。未来格式变化通过 migration 升级。
@@ -129,6 +139,11 @@ Agent 的结论必须尽量绑定 evidence ref。关键证据包括：
 
 MVP 支持 DeepSeek、OpenAI、Anthropic、本地 llama。provider fallback 和 model
 profiles 是 runtime 能力，但真实模型调用测试不进入默认 CI。
+
+当前 CLI 闭环优先实现 OpenAI-compatible provider 和本地 CUDA llama 进程
+fallback。provider 配置只从 `$HOME/.vanta/providers.json` 读取；OpenAI 请求
+失败、超时、认证缺失或网络错误时自动切换本地 llama 进程。provider 日志和
+artifact 只记录 provider 名称、模型名、fallback 状态和摘要，不记录 API key。
 
 ## 安全模式
 

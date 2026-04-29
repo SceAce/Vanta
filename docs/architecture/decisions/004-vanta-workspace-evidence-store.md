@@ -20,12 +20,15 @@ workspace 保存：
 1. `session.jsonl`
 2. `facts.json`
 3. `tool-runs.jsonl`
-4. `pwn/crashes/`
-5. `pwn/payloads/`
-6. `pwn/exploits/`
-7. `pwn/reports/`
-8. `pwn/gdb/`
-9. `pwn/ida/`
+4. `pwn/case.json`
+5. `pwn/crashes/`
+6. `pwn/payloads/`
+7. `pwn/exploits/`
+8. `pwn/reports/`
+9. `pwn/gdb/`
+10. `pwn/ida/`
+11. `pwn/runs/<run_id>/`
+12. `pwn/knowledge/patterns.json`
 
 关键文件必须包含 `schema_version`。后续格式变化通过 migration 处理。
 

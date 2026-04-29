@@ -1,8 +1,92 @@
 {
   "project": "Vanta",
-  "updated_at": "2026-04-26T12:24:16Z",
+  "updated_at": "2026-04-29T13:56:42Z",
   "status": "passing",
   "reports": [
+    {
+      "run_at": "2026-04-29T13:56:42Z",
+      "environment": "local",
+      "results": [
+        { "suite": "cargo fmt --check", "passed": true, "errors": 0 },
+        { "suite": "cargo clippy", "passed": true, "errors": 0 },
+        {
+          "suite": "cargo test --workspace",
+          "passed": 18,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "pytest",
+          "passed": 13,
+          "failed": 0,
+          "skipped": 0
+        },
+        { "suite": "mypy", "passed": true, "errors": 0 },
+        { "suite": "ruff", "passed": true, "errors": 0 },
+        { "suite": "pnpm lint", "passed": true, "errors": 0 },
+        { "suite": "prettier", "passed": true, "errors": 0 },
+        { "suite": "verify.sh", "passed": true, "errors": 0 },
+        {
+          "suite": "vanta solve provider fallback smoke",
+          "passed": true,
+          "errors": 0
+        }
+      ],
+      "notes": "Local model solve loop validation passed: OpenAI-compatible provider failure fell back to local llama process, Python pwn worker static evidence was collected, solve generated analysis.json, and full verify.sh exited 0."
+    },
+    {
+      "run_at": "2026-04-29T13:35:57Z",
+      "environment": "local",
+      "results": [
+        { "suite": "cargo fmt --check", "passed": true, "errors": 0 },
+        { "suite": "cargo clippy", "passed": true, "errors": 0 },
+        {
+          "suite": "cargo test --workspace",
+          "passed": 11,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "pytest",
+          "passed": 13,
+          "failed": 0,
+          "skipped": 0
+        },
+        { "suite": "mypy", "passed": true, "errors": 0 },
+        { "suite": "ruff", "passed": true, "errors": 0 },
+        { "suite": "pnpm lint", "passed": true, "errors": 0 },
+        { "suite": "prettier", "passed": true, "errors": 0 },
+        { "suite": "verify.sh", "passed": true, "errors": 0 },
+        { "suite": "vanta case workflow smoke", "passed": true, "errors": 0 }
+      ],
+      "notes": "Case workflow validation passed after adding JSON/YAML case loading, CLI case init/validate/solve, canonical .vanta/pwn/case.json, run artifacts, knowledge patterns, and high-level pwn worker workflow contracts. Full verify.sh exited 0."
+    },
+    {
+      "run_at": "2026-04-29T13:11:56Z",
+      "environment": "local",
+      "results": [
+        { "suite": "cargo fmt --check", "passed": true, "errors": 0 },
+        { "suite": "cargo clippy", "passed": true, "errors": 0 },
+        {
+          "suite": "cargo test --workspace",
+          "passed": 5,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "pytest",
+          "passed": 9,
+          "failed": 0,
+          "skipped": 0
+        },
+        { "suite": "mypy", "passed": true, "errors": 0 },
+        { "suite": "ruff", "passed": true, "errors": 0 },
+        { "suite": "pnpm lint", "passed": true, "errors": 0 },
+        { "suite": "prettier", "passed": true, "errors": 0 },
+        { "suite": "verify.sh", "passed": true, "errors": 0 }
+      ],
+      "notes": "Pwn worker contract validation passed after adding IDA MCP pseudocode methods, pwno-mcp GDB adapter, buffered MCP stdio reads, and local GDB fallback; full verify.sh exited 0. Manual smoke also listed tools from ghcr.io/pwno-io/pwno-mcp:latest."
+    },
     {
       "run_at": "2026-04-26T12:24:16Z",
       "environment": "local",

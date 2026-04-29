@@ -30,6 +30,7 @@ _EXEMPT = frozenset(
         # Serialization
         "serde",
         "serde_json",
+        "serde_yaml",
         "toml",
         # Error handling
         "thiserror",
@@ -47,6 +48,7 @@ _EXEMPT = frozenset(
         # HTTP client
         "reqwest",
         "reqwest-eventsource",
+        "rustls",
         # Observability
         "tracing",
         "tracing-subscriber",

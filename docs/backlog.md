@@ -14,13 +14,16 @@
 - [ ] Rust CLI 入口 `vanta`
 - [ ] `$HOME/.vanta/` 用户配置
 - [ ] `.vanta/` workspace 初始化
+- [x] Pwn case JSON/YAML loader、默认值和敏感 env 校验
+- [x] `vanta case init` / `vanta case validate` / `vanta solve` 骨架
+- [x] `.vanta/pwn/runs/` 和 `.vanta/pwn/knowledge/` artifact 初始化
 - [ ] permission engine
 - [ ] tool supervisor
 - [ ] transcript writer
 - [ ] evidence ref writer
-- [ ] provider adapter
+- [x] provider adapter：OpenAI-compatible 优先、本地 llama 进程兜底
 - [ ] model profiles
-- [ ] provider fallback
+- [x] provider fallback
 
 ## 2. TUI
 
@@ -35,11 +38,13 @@
 
 ## 3. Python Pwn Worker
 
-- [ ] JSON-RPC over stdio server
+- [x] JSON-RPC over stdio server
 - [ ] ELF triage tools
-- [ ] IDA MCP 自动启动和调用
-- [ ] GDB worker/MCP
-- [ ] pwndbg 集成
+- [x] IDA MCP 自动启动和调用
+- [x] GDB worker/MCP
+- [x] pwndbg 集成
+- [x] pwno-mcp 配置入口
+- [x] 高层 `pwn.static_scan`、`pwn.breakpoint_plan`、`pwn.dynamic_verify`、`pwn.poc_draft`、`pwn.pattern_match` 合同
 - [ ] pwntools exploit runner
 - [ ] ROPGadget/ropper/one_gadget wrappers
 
@@ -52,6 +57,7 @@
 - [ ] `/exploit`
 - [ ] `/report`
 - [ ] `/vanta-solve`
+- [x] CLI `vanta solve` 调用 worker、模型 provider 和 run artifacts
 - [ ] ret2win demo
 - [ ] ret2libc demo
 - [ ] ROP demo

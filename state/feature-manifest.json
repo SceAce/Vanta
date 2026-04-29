@@ -1,6 +1,6 @@
 {
   "project": "Vanta",
-  "updated_at": "2026-04-26T11:55:11Z",
+  "updated_at": "2026-04-29T13:55:04Z",
   "features": [
     {
       "feature_id": "vanta-core-runtime",
@@ -8,15 +8,15 @@
       "priority": "p0",
       "status": "in_progress",
       "milestone": "M-004",
-      "modules": ["apps/cli", "crates/core"]
+      "modules": ["apps/cli", "crates/core", "tools/pwn-worker"]
     },
     {
       "feature_id": "vanta-pwn-workflow",
       "title": "Vanta Pwn workflow",
       "priority": "p0",
-      "status": "planned",
+      "status": "in_progress",
       "milestone": "M-005",
-      "modules": ["tools/pwn-workers"]
+      "modules": ["apps/cli", "crates/core", "tools/pwn-worker"]
     },
     {
       "feature_id": "vanta-tui-workbench",

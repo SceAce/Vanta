@@ -1,6 +1,6 @@
 {
   "project": "Vanta",
-  "updated_at": "2026-04-26T11:55:11Z",
+  "updated_at": "2026-04-29T13:55:04Z",
   "roadmap": [
     "M-004: Vanta 文档、治理和架构基线",
     "M-005: Vanta Core + TUI + Python worker 原型",
@@ -50,14 +50,14 @@
       "title": "Vanta Core runtime",
       "status": "in_progress",
       "milestone": "M-005",
-      "modules": ["apps/cli", "crates/core"]
+      "modules": ["apps/cli", "crates/core", "tools/pwn-worker"]
     },
     {
       "feature_id": "vanta-pwn-workflow",
       "title": "Vanta Pwn workflow",
-      "status": "planned",
+      "status": "in_progress",
       "milestone": "M-006",
-      "modules": ["tools/pwn-workers"]
+      "modules": ["apps/cli", "crates/core", "tools/pwn-worker"]
     },
     {
       "feature_id": "vanta-tui-workbench",
@@ -87,6 +87,27 @@
       "description": "Implement the first runnable Vanta Core skeleton with Cargo workspace, vanta init/status, workspace metadata, and session event files.",
       "status": "in_progress",
       "created_at": "2026-04-26T11:55:11Z",
+      "resolved_at": null
+    },
+    {
+      "id": "CI-007",
+      "description": "Implement the first Python pwn worker contract with IDA MCP pseudocode calls, pwno-mcp GDB adapter, and long-lived local GDB fallback methods.",
+      "status": "in_progress",
+      "created_at": "2026-04-29T12:50:14Z",
+      "resolved_at": null
+    },
+    {
+      "id": "CI-008",
+      "description": "Implement Pwn case JSON/YAML schema loading, CLI case commands, deterministic workflow artifact initialization, and high-level pwn worker workflow method contracts.",
+      "status": "in_progress",
+      "created_at": "2026-04-29T13:33:48Z",
+      "resolved_at": null
+    },
+    {
+      "id": "CI-009",
+      "description": "Connect local model providers to vanta solve with OpenAI-compatible priority, local CUDA llama process fallback, Python pwn worker orchestration, IDA static evidence, optional GDB dynamic evidence, and run analysis artifacts.",
+      "status": "in_progress",
+      "created_at": "2026-04-29T13:55:04Z",
       "resolved_at": null
     }
   ]
