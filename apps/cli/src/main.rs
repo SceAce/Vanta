@@ -5,7 +5,7 @@ use std::path::PathBuf;
 
 use anyhow::{Context, Result, bail};
 use vanta_core::{
-    ProviderConfig, PwnCase, init_workspace, load_case, provider_status, solve_case,
+    ProviderConfig, PwnCase, init_workspace, load_case, provider_status, solve_case_with_reporter,
     workspace_status, write_case_draft, write_provider_config,
 };
 
@@ -106,7 +106,10 @@ fn run(command: Command) -> Result<()> {
         Command::Solve { path } => {
             let case = load_case(&path).context("加载 case 失败")?;
             let root = project_root_for_case_file(&path);
-            let outcome = solve_case(root, &case).context("运行 pwn solve workflow 失败")?;
+            let outcome = solve_case_with_reporter(root, &case, |message| {
+                eprintln!("[vanta solve] {message}");
+            })
+            .context("运行 pwn solve workflow 失败")?;
             println!("run: {}", outcome.run_id);
             println!("workspace: {}", outcome.workspace_dir.display());
             println!("artifacts: {}", outcome.run_dir.display());

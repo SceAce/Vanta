@@ -35,8 +35,20 @@ pub struct SolveOutcome {
 
 /// Run the local pwn solve workflow.
 pub fn solve_case(project_root: impl AsRef<Path>, case: &PwnCase) -> VantaResult<SolveOutcome> {
+    solve_case_with_reporter(project_root, case, |_message| {})
+}
+
+/// Run the local pwn solve workflow with progress reporting.
+pub fn solve_case_with_reporter(
+    project_root: impl AsRef<Path>,
+    case: &PwnCase,
+    mut report: impl FnMut(&str),
+) -> VantaResult<SolveOutcome> {
+    report("初始化 workspace 和 run artifacts");
     let run = start_pwn_workflow(project_root, case)?;
+    report("启动 Python pwn worker");
     let mut worker = PwnWorkerClient::start()?;
+    report("检查 worker capabilities");
     let capabilities = call_and_write(
         &mut worker,
         &run,
@@ -44,6 +56,7 @@ pub fn solve_case(project_root: impl AsRef<Path>, case: &PwnCase) -> VantaResult
         "capability-check.json",
         serde_json::json!({}),
     )?;
+    report("运行 IDA/static scan");
     let static_scan = call_and_write(
         &mut worker,
         &run,
@@ -51,13 +64,16 @@ pub fn solve_case(project_root: impl AsRef<Path>, case: &PwnCase) -> VantaResult
         "static-scan.json",
         case_params(case),
     )?;
+    report("匹配 pwn pattern 候选");
     let pattern_match = worker.call(
         "pwn.pattern_match",
         serde_json::json!({"static_scan": static_scan}),
     )?;
     append_tool_event(&run, "pwn.pattern_match", "ok", &pattern_match)?;
+    report("请求模型进行第一轮分析");
     let model_response = first_model_pass(case, &capabilities, &static_scan, &pattern_match)?;
-    let gdb_used = maybe_dynamic_verify(&mut worker, &run, case, &model_response)?;
+    let gdb_used = maybe_dynamic_verify(&mut worker, &run, case, &model_response, &mut report)?;
+    report("生成 PoC 草案 artifact");
     let poc_draft = call_and_write(
         &mut worker,
         &run,
@@ -65,7 +81,9 @@ pub fn solve_case(project_root: impl AsRef<Path>, case: &PwnCase) -> VantaResult
         "poc-draft.json",
         case_params(case),
     )?;
+    report("请求模型生成最终分析");
     let final_response = final_model_pass(case, &static_scan, &poc_draft, &model_response)?;
+    report("写入 analysis.json 和 facts.json");
     write_analysis(&run, &model_response, &final_response, gdb_used)?;
     write_facts(&run, &final_response)?;
     Ok(SolveOutcome {
@@ -123,8 +141,10 @@ fn maybe_dynamic_verify(
     run: &WorkflowRunOutcome,
     case: &PwnCase,
     model_response: &ModelResponse,
+    report: &mut impl FnMut(&str),
 ) -> VantaResult<bool> {
     if !model_requests_gdb(&model_response.text) {
+        report("模型未要求 GDB 动态证据，跳过 dynamic verify");
         write_planned_skip(
             run,
             "dynamic-verify.json",
@@ -132,6 +152,7 @@ fn maybe_dynamic_verify(
         )?;
         return Ok(false);
     }
+    report("模型要求 GDB 动态证据，生成 breakpoint plan");
     let breakpoint = call_and_write(
         worker,
         run,
@@ -140,6 +161,7 @@ fn maybe_dynamic_verify(
         case_params(case),
     )?;
     append_tool_event(run, "pwn.breakpoint_plan", "ok", &breakpoint)?;
+    report("运行 GDB dynamic verify");
     let dynamic = call_and_write(
         worker,
         run,

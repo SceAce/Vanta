@@ -191,6 +191,9 @@ pub fn infer_with_fallback(
                 if let Some(local) = &config.local_llama_process {
                     return infer_local_llama(local, request, true);
                 }
+                return Err(VantaError::Http(format!(
+                    "openai_compatible provider failed and local_llama_process is not configured: {_error}"
+                )));
             }
         }
     }

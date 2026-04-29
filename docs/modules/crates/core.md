@@ -16,9 +16,10 @@ artifact 和 session JSONL 事件写入。
 - `start_pwn_workflow(project_root, case)`：初始化 pwn workflow 目录和 run artifact。
 - `provider_status()`：只读检查 `$HOME/.vanta/providers.json` 是否存在及 provider 形态。
 - `write_provider_config(config)`：写入用户本机 provider 配置，不写项目 workspace。
-- `infer_with_fallback(config, request)`：OpenAI-compatible 优先，本地 llama 进程兜底。
+- `infer_with_fallback(config, request)`：OpenAI-compatible 优先，本地 llama 进程兜底；当 OpenAI-compatible 请求失败且未配置本地进程兜底时，返回包含真实 HTTP 失败原因的错误。
 - `PwnWorkerClient`：通过 JSON-RPC over stdio 调用 Python pwn worker。
 - `solve_case(project_root, case)`：串联 worker、模型和 artifact 的 CLI solve 编排。
+- `solve_case_with_reporter(project_root, case, reporter)`：同上，但向调用方报告阶段进度，供 CLI 输出 `[vanta solve] ...`。
 - `PwnCase`：Vanta Pwn case schema。
 - `RemoteTarget`：remote 元数据，真实连接仍由 runtime 权限系统确认。
 - `WorkspacePaths`：集中描述 `.vanta/` 相关路径。

@@ -17,7 +17,9 @@ pub use provider::{
     infer_with_fallback, load_provider_config, provider_config_path, provider_status, vanta_home,
     write_provider_config,
 };
-pub use solve::{SOLVE_ANALYSIS_SCHEMA_VERSION, SolveOutcome, solve_case};
+pub use solve::{
+    SOLVE_ANALYSIS_SCHEMA_VERSION, SolveOutcome, solve_case, solve_case_with_reporter,
+};
 pub use worker_client::{PWN_WORKER_COMMAND_ENV, PwnWorkerClient, worker_command};
 pub use workflow::{
     PWN_PATTERNS_SCHEMA_VERSION, PWN_RUN_SCHEMA_VERSION, PWN_STEP_SCHEMA_VERSION, PwnRun,
