@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vanta.dev/schemas/feature-manifest.schema.json",
+  "title": "Vanta Feature Manifest",
+  "description": "Canonical schema for state/feature-manifest.json — tracked features with priority and status.",
+  "type": "object",
+  "required": ["features"],
+  "additionalProperties": false,
+  "properties": {
+    "features": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/feature" },
+      "description": "All tracked features."
+    }
+  },
+  "$defs": {
+    "feature": {
+      "type": "object",
+      "required": ["feature_id", "title", "priority", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "feature_id": {
+          "type": "string",
+          "description": "Unique feature identifier (kebab-case)."
+        },
+        "title": {
+          "type": "string",
+          "description": "Human-readable feature title."
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["p0", "p1", "p2", "p3"],
+          "description": "Priority tier: p0 = critical, p3 = nice-to-have."
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "planned",
+            "in_progress",
+            "candidate_complete",
+            "verified_complete",
+            "blocked",
+            "rejected"
+          ],
+          "description": "Current feature lifecycle status."
+        },
+        "milestone": {
+          "type": "string",
+          "description": "Associated milestone identifier."
+        },
+        "modules": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Crate or module names this feature touches."
+        }
+      }
+    }
+  }
+}

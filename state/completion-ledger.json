@@ -1,0 +1,51 @@
+{
+  "project": "Vanta",
+  "updated_at": "2026-04-26T11:55:11Z",
+  "entries": [
+    {
+      "feature_id": "governance-api-key-local-storage",
+      "status": "in_progress",
+      "verification_status": "unverified",
+      "evidence_ref": "docs/security-model.md; state/policy.json; specs/policy.schema.json",
+      "history": [
+        {
+          "timestamp": "2026-04-26T11:55:11Z",
+          "from_status": "planned",
+          "to_status": "in_progress",
+          "actor": "codex",
+          "reason": "Aligned governance policy with owner-approved local API key storage under $HOME/.vanta/."
+        }
+      ]
+    },
+    {
+      "feature_id": "vanta-documentation-baseline",
+      "status": "in_progress",
+      "verification_status": "unverified",
+      "evidence_ref": "docs/product/prd.md; docs/architecture/overview.md; docs/security-model.md",
+      "history": [
+        {
+          "timestamp": "2026-04-26T11:55:11Z",
+          "from_status": "planned",
+          "to_status": "in_progress",
+          "actor": "codex",
+          "reason": "Established Vanta product, architecture, security, testing, design, and backlog documentation baseline."
+        }
+      ]
+    },
+    {
+      "feature_id": "vanta-core-runtime",
+      "status": "in_progress",
+      "verification_status": "unverified",
+      "evidence_ref": "cargo test --workspace; cargo clippy --workspace --all-targets -- -D warnings; cargo run -p vanta-cli -- init /tmp/vanta-smoke --mode ctf",
+      "history": [
+        {
+          "timestamp": "2026-04-26T11:55:11Z",
+          "from_status": "planned",
+          "to_status": "in_progress",
+          "actor": "codex",
+          "reason": "Added the first runnable Vanta Core skeleton with workspace initialization and CLI status checks."
+        }
+      ]
+    }
+  ]
+}

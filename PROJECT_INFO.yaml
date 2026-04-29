@@ -1,0 +1,31 @@
+project_name: Vanta
+repository_url: https://github.com/Cubeyond/Vanta
+license: Apache-2.0
+author:
+  name: Cubeyond
+  email: ""
+document_language: Simplified Chinese
+owner_conversation_language: Simplified Chinese
+languages:
+  rust: "1.92.0"
+  python: ">=3.13"
+node_package_manager: pnpm@10.33.0
+python_package_manager: uv
+branch_policy:
+  stable_branch: main
+  integration_branch: dev
+release_policy: semver
+security_priority: true
+commit_policy:
+  signed_commits: true
+  conventional_commits: true
+integrations:
+  github: true
+  discord: false
+  matrix_element: false
+  provider_broker: true
+  object_storage: false
+  postgresql: false
+notes:
+  - "Vanta Core 是安全 Agent 平台底座，Vanta Pwn 是第一个领域工作流。"
+  - "API key 只允许存储在用户本机 $HOME/.vanta/。"

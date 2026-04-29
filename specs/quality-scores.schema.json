@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Vanta Quality Scores",
+  "type": "object",
+  "required": ["updated_at", "updated_by", "domains", "trend"],
+  "additionalProperties": false,
+  "properties": {
+    "updated_at": { "type": "string", "format": "date-time" },
+    "updated_by": { "type": "string" },
+    "domains": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/domain_score"
+      }
+    },
+    "trend": {
+      "type": "string",
+      "enum": ["baseline", "improving", "stable", "degrading"]
+    }
+  },
+  "$defs": {
+    "domain_score": {
+      "type": "object",
+      "properties": {
+        "coverage": {
+          "oneOf": [
+            { "type": "number", "minimum": 0, "maximum": 100 },
+            { "type": "null" }
+          ]
+        },
+        "doc_freshness": {
+          "oneOf": [
+            { "type": "number", "minimum": 0, "maximum": 100 },
+            { "type": "null" }
+          ]
+        },
+        "lint_score": {
+          "oneOf": [
+            { "type": "number", "minimum": 0, "maximum": 100 },
+            { "type": "null" }
+          ]
+        },
+        "debt_load": {
+          "oneOf": [
+            { "type": "number", "minimum": 0, "maximum": 100 },
+            { "type": "null" }
+          ]
+        },
+        "overall": {
+          "oneOf": [
+            { "type": "number", "minimum": 0, "maximum": 100 },
+            { "type": "null" }
+          ]
+        },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

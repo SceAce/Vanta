@@ -1,0 +1,28 @@
+{
+  "name": "vanta-workspace",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=24.14.0",
+    "pnpm": ">=10.32.1"
+  },
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "pnpm run lint:markdown && pnpm run lint:package-json && pnpm run lint:prettier",
+    "lint:markdown": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#target\" \"#docs/_generated\"",
+    "lint:package-json": "npmPkgJsonLint .",
+    "lint:prettier": "prettier --check \"**/*.{json,jsonc,yml,yaml,md}\"",
+    "verify": "pnpm run lint && pnpm run format:check"
+  },
+  "devDependencies": {
+    "markdownlint-cli2": "^0.18.1",
+    "npm-package-json-lint": "^9.0.0",
+    "npm-package-json-lint-config-default": "^8.0.1",
+    "prettier": "^3.6.2"
+  },
+  "npmpackagejsonlint": {
+    "extends": "npm-package-json-lint-config-default"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "project": "Vanta",
+  "license": "Apache-2.0",
+  "author": "Cubeyond",
+  "repository_artifact_language": "Simplified Chinese",
+  "default_response_language": "Simplified Chinese",
+  "rust_version": "1.92.0",
+  "python_requires": ">=3.13",
+  "python_target": "3.13",
+  "package_manager_node": "pnpm@10.33.0",
+  "avoid_local_optima": true,
+  "require_global_impact_assessment": true,
+  "require_docs_update": true,
+  "require_schema_update_for_contract_change": true,
+  "require_progress_update": true,
+  "require_test_report_update": true,
+  "require_changelog_compile": false,
+  "changelog_compile_owner": "ci",
+  "require_freshness_check": true,
+  "freshness_check_script": "scripts/ci/check_doc_freshness.py",
+  "main_branch": "main",
+  "integration_branch": "dev",
+  "merge_strategy": "squash",
+  "auto_delete_head_branches": true,
+  "human_gate_on": [
+    "breaking_public_interface_without_migration",
+    "destructive_or_irreversible_mutation",
+    "security_boundary_weakening",
+    "release_or_tag_before_gates",
+    "major_version_bump",
+    "api_key_handling_change"
+  ],
+  "require_signed_commits": true,
+  "commit_command": "git commit -S",
+  "require_tests_for_behavior_changes": true,
+  "dev_branch_required": true,
+  "require_verify_green_before_commit": true,
+  "push_strategy": "follow_tags",
+  "security_privacy_is_law": true,
+  "no_api_key_storage": false,
+  "api_key_storage_scope": "$HOME/.vanta/",
+  "api_key_repository_storage_forbidden": true,
+  "no_api_key_in_logs": true,
+  "no_telemetry": true,
+  "require_real_timestamps": true,
+  "timestamp_command": "date -u +%Y-%m-%dT%H:%M:%SZ",
+  "fabricated_timestamps_are_policy_violation": true,
+  "taste_invariants": {
+    "T-001_no_unwrap_in_non_test": true,
+    "T-002_public_items_must_have_rustdoc": true,
+    "T-003_no_marker_comments_in_production": true,
+    "T-004_arch_boundaries_enforced": true,
+    "T-004_config": ".config/arch-boundaries.toml",
+    "T-005_evidence_lease_ref_required_on_candidate_or_verified_complete": true,
+    "T-006_stale_open_intents_emitted_as_debt": true,
+    "T-006_stale_threshold_days": 7,
+    "T-007_max_non_test_fn_lines": 60,
+    "enforce_naming_conventions": true,
+    "boring_tech_preferred": true,
+    "linter_error_messages_must_include_remediation": true
+  },
+  "iteration_protocol": {
+    "max_iterations": 5,
+    "alert_threshold_rounds": 3,
+    "record_evidence_diff_per_round": true
+  },
+  "quality_grading": {
+    "enabled": true,
+    "max_score_drop_without_t0_approval": 5,
+    "scores_file": "state/quality-scores.json"
+  },
+  "module_doc_sync": {
+    "enabled": true,
+    "enforcement": "hard",
+    "doc_dir": "docs/modules/",
+    "rule": "Every crate under crates/<name>/ and apps/<name>/ must have a corresponding docs/modules/<category>/<name>.md. Any commit that modifies source files must also update that module doc. Missing or unupdated docs are a hard CI violation.",
+    "required_sections": ["Overview", "Public API", "Dependencies"]
+  },
+  "hooks": {
+    "auto_sync_check": {
+      "trigger": "UserPromptSubmit",
+      "description": "Fetch origin and block the turn if local branch is behind remote."
+    },
+    "auto_push": {
+      "trigger": "Stop",
+      "description": "Push current branch and reachable annotated tags (--follow-tags) to origin after a clean stop."
+    },
+    "block_dirty_stop": {
+      "trigger": "Stop",
+      "description": "Block session stop when working tree is dirty."
+    },
+    "block_unsafe_git_commit": {
+      "trigger": "PreToolUse",
+      "description": "Block any git commit that omits the -S signing flag."
+    },
+    "block_protected_bash_write": {
+      "trigger": "PreToolUse",
+      "description": "Block Bash write operations to T0-protected files."
+    },
+    "block_protected_file_write": {
+      "trigger": "PreToolUse",
+      "description": "Block Write/Edit operations to T0-protected files."
+    },
+    "pre_compact_state_save": {
+      "trigger": "PreCompact",
+      "description": "Save session state snapshot before context compression."
+    }
+  }
+}

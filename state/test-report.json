@@ -1,0 +1,54 @@
+{
+  "project": "Vanta",
+  "updated_at": "2026-04-26T12:24:16Z",
+  "status": "passing",
+  "reports": [
+    {
+      "run_at": "2026-04-26T12:24:16Z",
+      "environment": "local",
+      "results": [
+        { "suite": "cargo fmt --check", "passed": true, "errors": 0 },
+        { "suite": "cargo clippy", "passed": true, "errors": 0 },
+        {
+          "suite": "cargo test --workspace",
+          "passed": 5,
+          "failed": 0,
+          "skipped": 0
+        },
+        { "suite": "verify.sh", "passed": true, "errors": 0 },
+        { "suite": "pytest", "passed": 2, "failed": 0, "skipped": 0 },
+        { "suite": "mypy", "passed": true, "errors": 0 },
+        { "suite": "ruff", "passed": true, "errors": 0 },
+        { "suite": "pnpm lint", "passed": true, "errors": 0 },
+        { "suite": "prettier", "passed": true, "errors": 0 },
+        { "suite": "vanta init smoke", "passed": true, "errors": 0 }
+      ],
+      "notes": "Vanta Core skeleton validation passed: Rust workspace builds, vanta init/status smoke succeeded, and full verify.sh exited 0."
+    },
+    {
+      "run_at": "2026-04-05T16:04:36Z",
+      "environment": "local",
+      "results": [
+        { "suite": "verify.sh", "passed": true, "errors": 0 },
+        { "suite": "pytest", "passed": 1, "failed": 0, "skipped": 0 },
+        { "suite": "mypy", "passed": true, "errors": 0 },
+        { "suite": "ruff", "passed": true, "errors": 0 },
+        { "suite": "pnpm lint", "passed": true, "errors": 0 },
+        { "suite": "prettier", "passed": true, "errors": 0 }
+      ],
+      "notes": "Post-audit local validation passed after correcting README verification-count drift."
+    },
+    {
+      "run_at": "2026-04-05T13:45:00Z",
+      "environment": "local",
+      "results": [
+        { "suite": "pytest", "passed": 1, "failed": 0, "skipped": 0 },
+        { "suite": "mypy", "passed": true, "errors": 0 },
+        { "suite": "ruff", "passed": true, "errors": 0 },
+        { "suite": "pnpm lint", "passed": true, "errors": 0 },
+        { "suite": "prettier", "passed": true, "errors": 0 }
+      ],
+      "notes": "All local checks pass. CI run 24002619986 in progress on main."
+    }
+  ]
+}

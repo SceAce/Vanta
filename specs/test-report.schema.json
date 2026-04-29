@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vanta.dev/schemas/test-report.schema.json",
+  "title": "Vanta Test Report",
+  "description": "Canonical schema for state/test-report.json — CI/local verification results.",
+  "type": "object",
+  "required": ["project", "updated_at", "status", "reports"],
+  "additionalProperties": false,
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "Project name."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp of last test run."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["passed", "failed", "pending"],
+      "description": "Aggregate status across all reports."
+    },
+    "reports": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/report" },
+      "description": "Individual test/lint scope results."
+    }
+  },
+  "$defs": {
+    "report": {
+      "type": "object",
+      "required": ["scope", "commands", "result"],
+      "additionalProperties": false,
+      "properties": {
+        "scope": {
+          "type": "string",
+          "description": "Human-readable scope label (e.g. 'cargo test --workspace')."
+        },
+        "commands": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Exact commands executed for this scope."
+        },
+        "result": {
+          "type": "string",
+          "enum": ["passed", "failed", "skipped"],
+          "description": "Result of this scope."
+        },
+        "notes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Optional notes or observations."
+        }
+      }
+    }
+  }
+}

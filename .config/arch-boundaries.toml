@@ -1,0 +1,15 @@
+# Vanta architecture boundary policy.
+#
+# The T-004 linter reads this file when Rust crates/apps exist. The repository
+# currently has no Cargo workspace yet, so this file establishes the policy
+# source of truth before implementation starts.
+
+[[crate]]
+name = "core"
+allowed_deps = []
+forbidden_deps = []
+
+[[crate]]
+name = "cli"
+allowed_deps = ["vanta-core"]
+forbidden_deps = []

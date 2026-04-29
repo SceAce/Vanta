@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vanta.dev/schemas/progress.schema.json",
+  "title": "Vanta Progress",
+  "description": "Canonical schema for state/progress.json — project milestones, features, and change intents.",
+  "type": "object",
+  "required": [
+    "project",
+    "updated_at",
+    "roadmap",
+    "milestones",
+    "features",
+    "change_intents"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "Project name."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp of last update."
+    },
+    "roadmap": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Ordered list of version milestones with summaries."
+    },
+    "milestones": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/milestone" },
+      "description": "Completed or in-progress milestones."
+    },
+    "features": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/feature" },
+      "description": "Tracked feature work items."
+    },
+    "change_intents": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/change_intent" },
+      "description": "Declared change intents awaiting execution."
+    }
+  },
+  "$defs": {
+    "milestone": {
+      "type": "object",
+      "required": ["id", "title", "status", "type", "summary"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique milestone identifier (kebab-case)."
+        },
+        "title": {
+          "type": "string",
+          "description": "Human-readable milestone title."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["planned", "in_progress", "completed", "blocked"],
+          "description": "Current milestone status."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["feature", "maintenance", "infrastructure", "release"],
+          "description": "Category of milestone."
+        },
+        "summary": {
+          "type": "string",
+          "description": "Brief description of what the milestone covers."
+        },
+        "handoff": {
+          "$ref": "#/$defs/handoff",
+          "description": "Handoff evidence for completed milestones."
+        }
+      }
+    },
+    "handoff": {
+      "type": "object",
+      "required": ["branch", "commit_sha", "commands_run", "evidence_refs"],
+      "additionalProperties": false,
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Branch where the work was completed."
+        },
+        "commit_sha": {
+          "type": "string",
+          "description": "Commit SHA at handoff."
+        },
+        "commands_run": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Verification commands executed."
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "References to evidence artifacts."
+        }
+      }
+    },
+    "feature": {
+      "type": "object",
+      "required": ["feature_id", "title", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "feature_id": {
+          "type": "string",
+          "description": "Unique feature identifier."
+        },
+        "title": {
+          "type": "string",
+          "description": "Human-readable feature title."
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "planned",
+            "in_progress",
+            "candidate_complete",
+            "verified_complete",
+            "blocked",
+            "rejected"
+          ],
+          "description": "Current feature status."
+        },
+        "milestone": {
+          "type": "string",
+          "description": "Associated milestone ID."
+        },
+        "modules": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Crate/module names involved."
+        }
+      }
+    },
+    "change_intent": {
+      "type": "object",
+      "required": ["id", "description", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique change intent identifier."
+        },
+        "description": {
+          "type": "string",
+          "description": "What the change intent covers."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["open", "in_progress", "completed", "stale", "rejected"],
+          "description": "Current status of the change intent."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the intent was declared."
+        },
+        "resolved_at": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "When the intent was resolved (null if open)."
+        }
+      }
+    }
+  }
+}

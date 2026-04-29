@@ -1,0 +1,14 @@
+# Workspace rustfmt configuration.
+# Run: cargo fmt --check   (CI gate)
+#       cargo fmt           (auto-fix)
+#
+# Only stable-channel options are used here.
+# Nightly-only aspirational options (imports_granularity, group_imports,
+# format_code_in_doc_comments, wrap_comments, normalize_comments,
+# normalize_doc_attributes) are documented in docs/policies/rust-coding-style.md
+# but cannot be enforced mechanically on stable.
+
+edition = "2024"
+max_width = 100
+use_field_init_shorthand = true
+use_try_shorthand = true

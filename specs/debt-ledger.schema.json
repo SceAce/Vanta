@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vanta.dev/schemas/debt-ledger.schema.json",
+  "title": "Vanta Debt Ledger",
+  "description": "Canonical schema for state/debt-ledger.json — tracked technical debt items.",
+  "type": "object",
+  "required": ["items"],
+  "additionalProperties": false,
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/debt_item" },
+      "description": "All tracked debt items."
+    }
+  },
+  "$defs": {
+    "debt_item": {
+      "type": "object",
+      "required": [
+        "id",
+        "source",
+        "scope",
+        "debt_type",
+        "severity",
+        "detected_at",
+        "detected_by",
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique debt item identifier."
+        },
+        "source": {
+          "type": "string",
+          "enum": ["agent_session", "human", "taste_linter"],
+          "description": "How the debt was detected."
+        },
+        "scope": {
+          "type": "string",
+          "description": "Affected crate, module, or file path."
+        },
+        "debt_type": {
+          "type": "string",
+          "enum": [
+            "architectural",
+            "security",
+            "maintainability",
+            "taste",
+            "performance"
+          ],
+          "description": "Category of technical debt."
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "critical"],
+          "description": "Impact severity."
+        },
+        "detected_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 UTC timestamp when detected."
+        },
+        "detected_by": {
+          "type": "string",
+          "description": "Agent, human, or linter that detected the debt."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["open", "in_remediation", "resolved"],
+          "description": "Current remediation status."
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of the debt."
+        },
+        "resolved_at": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "When the debt was resolved (null if open)."
+        }
+      }
+    }
+  }
+}

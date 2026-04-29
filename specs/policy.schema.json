@@ -1,0 +1,319 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vanta.dev/schemas/policy.schema.json",
+  "title": "Vanta Policy",
+  "description": "Canonical schema for state/policy.json — project-wide governance rules.",
+  "type": "object",
+  "required": [
+    "project",
+    "license",
+    "author",
+    "repository_artifact_language",
+    "default_response_language",
+    "rust_version",
+    "python_requires",
+    "python_target",
+    "package_manager_node",
+    "avoid_local_optima",
+    "require_global_impact_assessment",
+    "require_docs_update",
+    "require_schema_update_for_contract_change",
+    "require_progress_update",
+    "require_test_report_update",
+    "require_changelog_compile",
+    "changelog_compile_owner",
+    "require_freshness_check",
+    "freshness_check_script",
+    "main_branch",
+    "integration_branch",
+    "merge_strategy",
+    "auto_delete_head_branches",
+    "human_gate_on",
+    "require_signed_commits",
+    "commit_command",
+    "require_tests_for_behavior_changes",
+    "dev_branch_required",
+    "require_verify_green_before_commit",
+    "push_strategy",
+    "security_privacy_is_law",
+    "no_api_key_storage",
+    "no_api_key_in_logs",
+    "no_telemetry",
+    "require_real_timestamps",
+    "timestamp_command",
+    "fabricated_timestamps_are_policy_violation",
+    "taste_invariants",
+    "iteration_protocol",
+    "quality_grading",
+    "module_doc_sync",
+    "hooks"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "Project name."
+    },
+    "license": {
+      "type": "string",
+      "description": "SPDX license identifier."
+    },
+    "author": {
+      "type": "string",
+      "description": "Primary author in 'Name <email>' format."
+    },
+    "repository_artifact_language": {
+      "type": "string",
+      "description": "Language for code, docs, and commit messages."
+    },
+    "default_response_language": {
+      "type": "string",
+      "description": "Default language for agent responses to the owner."
+    },
+    "rust_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Minimum Rust toolchain version."
+    },
+    "python_requires": {
+      "type": "string",
+      "description": "Python version specifier (PEP 440)."
+    },
+    "python_target": {
+      "type": "string",
+      "description": "Target Python version for development."
+    },
+    "package_manager_node": {
+      "type": "string",
+      "description": "Node package manager with pinned version."
+    },
+    "avoid_local_optima": {
+      "type": "boolean",
+      "description": "Require global impact assessment before local changes."
+    },
+    "require_global_impact_assessment": {
+      "type": "boolean",
+      "description": "Mandate whole-system impact check for every change."
+    },
+    "require_docs_update": {
+      "type": "boolean",
+      "description": "Docs must be updated alongside code changes."
+    },
+    "require_schema_update_for_contract_change": {
+      "type": "boolean",
+      "description": "Schema files must be updated when contracts change."
+    },
+    "require_progress_update": {
+      "type": "boolean",
+      "description": "progress.json must be updated after milestones."
+    },
+    "require_test_report_update": {
+      "type": "boolean",
+      "description": "test-report.json must be updated after test runs."
+    },
+    "require_changelog_compile": {
+      "type": "boolean",
+      "description": "Whether changelog compilation is required per commit."
+    },
+    "changelog_compile_owner": {
+      "type": "string",
+      "description": "Who owns changelog compilation (ci, human, agent)."
+    },
+    "require_freshness_check": {
+      "type": "boolean",
+      "description": "Enable doc-freshness checking."
+    },
+    "freshness_check_script": {
+      "type": "string",
+      "description": "Path to the doc-freshness check script."
+    },
+    "main_branch": {
+      "type": "string",
+      "description": "Protected release branch."
+    },
+    "integration_branch": {
+      "type": "string",
+      "description": "Integration branch for feature merges."
+    },
+    "merge_strategy": {
+      "type": "string",
+      "enum": ["squash", "merge", "rebase"],
+      "description": "Default merge strategy for PRs."
+    },
+    "auto_delete_head_branches": {
+      "type": "boolean",
+      "description": "Auto-delete feature branches after merge."
+    },
+    "human_gate_on": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Actions that require explicit human approval."
+    },
+    "require_signed_commits": {
+      "type": "boolean",
+      "description": "All commits must be GPG/SSH signed."
+    },
+    "commit_command": {
+      "type": "string",
+      "description": "Git commit command template with signing flag."
+    },
+    "require_tests_for_behavior_changes": {
+      "type": "boolean",
+      "description": "Tests are mandatory for any behavior change."
+    },
+    "dev_branch_required": {
+      "type": "boolean",
+      "description": "All work must target the dev branch, not main."
+    },
+    "require_verify_green_before_commit": {
+      "type": "boolean",
+      "description": "verify.sh must pass before any commit."
+    },
+    "push_strategy": {
+      "type": "string",
+      "description": "Git push strategy (e.g. follow_tags)."
+    },
+    "security_privacy_is_law": {
+      "type": "boolean",
+      "description": "Security and privacy rules are non-negotiable."
+    },
+    "no_api_key_storage": {
+      "type": "boolean",
+      "description": "Whether API keys are forbidden from any disk persistence. Vanta sets this to false because user-local storage under $HOME/.vanta/ is allowed."
+    },
+    "api_key_storage_scope": {
+      "type": "string",
+      "description": "Only allowed local path scope for API key persistence."
+    },
+    "api_key_repository_storage_forbidden": {
+      "type": "boolean",
+      "description": "API keys must never be persisted in repository files, databases, logs, reports, state files, or shared artifacts."
+    },
+    "no_api_key_in_logs": {
+      "type": "boolean",
+      "description": "API keys must never appear in logs."
+    },
+    "no_telemetry": {
+      "type": "boolean",
+      "description": "Zero telemetry sent to external services."
+    },
+    "require_real_timestamps": {
+      "type": "boolean",
+      "description": "Timestamps must be real UTC, never fabricated."
+    },
+    "timestamp_command": {
+      "type": "string",
+      "description": "Shell command to produce a real UTC timestamp."
+    },
+    "fabricated_timestamps_are_policy_violation": {
+      "type": "boolean",
+      "description": "Fabricating timestamps is a hard policy violation."
+    },
+    "taste_invariants": {
+      "type": "object",
+      "description": "Taste linter invariant flags (T-001 through T-007 and meta).",
+      "required": [
+        "T-001_no_unwrap_in_non_test",
+        "T-002_public_items_must_have_rustdoc",
+        "T-003_no_marker_comments_in_production",
+        "T-004_arch_boundaries_enforced",
+        "T-004_config",
+        "T-005_evidence_lease_ref_required_on_candidate_or_verified_complete",
+        "T-006_stale_open_intents_emitted_as_debt",
+        "T-006_stale_threshold_days",
+        "T-007_max_non_test_fn_lines",
+        "enforce_naming_conventions",
+        "boring_tech_preferred",
+        "linter_error_messages_must_include_remediation"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "T-001_no_unwrap_in_non_test": { "type": "boolean" },
+        "T-002_public_items_must_have_rustdoc": { "type": "boolean" },
+        "T-003_no_marker_comments_in_production": { "type": "boolean" },
+        "T-004_arch_boundaries_enforced": { "type": "boolean" },
+        "T-004_config": { "type": "string" },
+        "T-005_evidence_lease_ref_required_on_candidate_or_verified_complete": {
+          "type": "boolean"
+        },
+        "T-006_stale_open_intents_emitted_as_debt": { "type": "boolean" },
+        "T-006_stale_threshold_days": { "type": "integer", "minimum": 1 },
+        "T-007_max_non_test_fn_lines": { "type": "integer", "minimum": 1 },
+        "enforce_naming_conventions": { "type": "boolean" },
+        "boring_tech_preferred": { "type": "boolean" },
+        "linter_error_messages_must_include_remediation": { "type": "boolean" }
+      }
+    },
+    "iteration_protocol": {
+      "type": "object",
+      "description": "Guardrails for iterative agent loops.",
+      "required": [
+        "max_iterations",
+        "alert_threshold_rounds",
+        "record_evidence_diff_per_round"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "max_iterations": { "type": "integer", "minimum": 1 },
+        "alert_threshold_rounds": { "type": "integer", "minimum": 1 },
+        "record_evidence_diff_per_round": { "type": "boolean" }
+      }
+    },
+    "quality_grading": {
+      "type": "object",
+      "description": "Quality score tracking configuration.",
+      "required": [
+        "enabled",
+        "max_score_drop_without_t0_approval",
+        "scores_file"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "max_score_drop_without_t0_approval": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scores_file": { "type": "string" }
+      }
+    },
+    "module_doc_sync": {
+      "type": "object",
+      "description": "Module documentation synchronization rules.",
+      "required": [
+        "enabled",
+        "enforcement",
+        "doc_dir",
+        "rule",
+        "required_sections"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "enforcement": { "type": "string", "enum": ["hard", "soft", "off"] },
+        "doc_dir": { "type": "string" },
+        "rule": { "type": "string" },
+        "required_sections": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "hooks": {
+      "type": "object",
+      "description": "Agent session hooks keyed by hook name.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["trigger", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "trigger": {
+            "type": "string",
+            "enum": ["UserPromptSubmit", "Stop", "PreToolUse", "PreCompact"]
+          },
+          "description": { "type": "string" }
+        }
+      }
+    }
+  }
+}

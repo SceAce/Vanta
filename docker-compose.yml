@@ -1,0 +1,30 @@
+services:
+  # PostgreSQL -- optional (in-memory state by default).
+  # Enable when persistence is needed.
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: trellis
+      POSTGRES_USER: trellis
+      POSTGRES_PASSWORD: trellis
+    ports:
+      - "15432:5432"
+    volumes:
+      - trellis-pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U trellis -d trellis"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Uncomment after first binary build:
+  # app:
+  #   build: .
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+
+volumes:
+  trellis-pg:

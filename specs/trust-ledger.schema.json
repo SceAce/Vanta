@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Vanta Trust Ledger",
+  "type": "object",
+  "required": ["project", "updated_at", "entries"],
+  "additionalProperties": false,
+  "properties": {
+    "project": { "type": "string", "minLength": 1 },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "entries": {
+      "type": "array",
+      "uniqueItems": true,
+      "default": [],
+      "items": {
+        "type": "object",
+        "required": [
+          "agent_id",
+          "scope",
+          "current_streak",
+          "current_risk_tier"
+        ],
+        "properties": {
+          "agent_id": { "type": "string" },
+          "scope": { "type": "string" },
+          "current_streak": { "type": "integer", "minimum": 0 },
+          "current_risk_tier": {
+            "type": "string",
+            "enum": ["low", "medium", "high"]
+          },
+          "total_deliveries": { "type": "integer", "minimum": 0, "default": 0 },
+          "total_regressions": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "last_delivery_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "last_regression_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "streak_reset_reason": {
+            "type": "string",
+            "enum": [
+              "regression",
+              "revert",
+              "security_violation",
+              "human_override"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

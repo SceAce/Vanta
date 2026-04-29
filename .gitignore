@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+.venv/
+
+# Python
+.pytest_cache/
+__pycache__/
+*.py[cod]
+
+# Rust
+target/
+
+# Vanta local state
+.vanta/
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/

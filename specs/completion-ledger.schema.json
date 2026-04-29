@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vanta.dev/schemas/completion-ledger.schema.json",
+  "title": "Vanta Completion Ledger",
+  "description": "Canonical schema for state/completion-ledger.json — feature completion tracking with audit history.",
+  "type": "object",
+  "required": ["entries"],
+  "additionalProperties": false,
+  "properties": {
+    "entries": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/entry" },
+      "description": "Completion ledger entries, one per tracked feature."
+    }
+  },
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "required": ["feature_id", "status", "verification_status", "history"],
+      "additionalProperties": false,
+      "properties": {
+        "feature_id": {
+          "type": "string",
+          "description": "Unique feature identifier matching feature-manifest."
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "planned",
+            "in_progress",
+            "candidate_complete",
+            "verified_complete",
+            "blocked",
+            "rejected"
+          ],
+          "description": "Current feature status."
+        },
+        "verification_status": {
+          "type": "string",
+          "enum": ["unverified", "pending_review", "verified", "rejected"],
+          "description": "Verification state of the completion claim."
+        },
+        "history": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/history_entry" },
+          "description": "Chronological status transition log."
+        }
+      }
+    },
+    "history_entry": {
+      "type": "object",
+      "required": ["timestamp", "from_status", "to_status", "actor", "reason"],
+      "additionalProperties": false,
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 UTC timestamp of the transition."
+        },
+        "from_status": {
+          "type": "string",
+          "description": "Status before the transition."
+        },
+        "to_status": {
+          "type": "string",
+          "description": "Status after the transition."
+        },
+        "actor": {
+          "type": "string",
+          "description": "Who triggered the transition (agent ID, human, CI)."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Why the transition occurred."
+        }
+      }
+    }
+  }
+}

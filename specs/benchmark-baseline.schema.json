@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vanta.dev/schemas/benchmark-baseline.schema.json",
+  "title": "Vanta Benchmark Baseline",
+  "description": "Canonical schema for state/benchmark-baseline.json — performance baselines and regression thresholds.",
+  "type": "object",
+  "required": ["baselines"],
+  "additionalProperties": false,
+  "properties": {
+    "baselines": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/baseline" },
+      "description": "All tracked benchmark baselines."
+    }
+  },
+  "$defs": {
+    "baseline": {
+      "type": "object",
+      "required": [
+        "benchmark_id",
+        "suite",
+        "metric",
+        "baseline_value",
+        "unit",
+        "regression_threshold_pct",
+        "direction",
+        "last_measured_at",
+        "last_measured_value"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "benchmark_id": {
+          "type": "string",
+          "description": "Unique benchmark identifier."
+        },
+        "suite": {
+          "type": "string",
+          "description": "Benchmark suite name (e.g. 'proxy_throughput')."
+        },
+        "metric": {
+          "type": "string",
+          "description": "Metric being measured (e.g. 'p99_latency_ms')."
+        },
+        "baseline_value": {
+          "type": "number",
+          "description": "Established baseline value."
+        },
+        "unit": {
+          "type": "string",
+          "description": "Unit of measurement (e.g. 'ms', 'req/s', 'bytes')."
+        },
+        "regression_threshold_pct": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Percentage deviation that triggers a regression alert."
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["lower_is_better", "higher_is_better"],
+          "description": "Whether lower or higher values are desirable."
+        },
+        "last_measured_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 UTC timestamp of last measurement."
+        },
+        "last_measured_value": {
+          "type": "number",
+          "description": "Most recent measured value."
+        },
+        "feature_id": {
+          "type": "string",
+          "description": "Optional feature ID this benchmark is associated with."
+        }
+      }
+    }
+  }
+}

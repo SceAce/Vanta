@@ -1,0 +1,93 @@
+{
+  "project": "Vanta",
+  "updated_at": "2026-04-26T11:55:11Z",
+  "roadmap": [
+    "M-004: Vanta 文档、治理和架构基线",
+    "M-005: Vanta Core + TUI + Python worker 原型",
+    "M-006: Vanta Pwn ret2win demo 自动获取 flag",
+    "M-007: ret2libc、ROP、format string、heap workflow 扩展"
+  ],
+  "milestones": [
+    {
+      "id": "M-001",
+      "title": "CI green on scaffold",
+      "status": "in_progress",
+      "completed_at": null,
+      "notes": "CI was failing on missing pnpm-lock.yaml, Rust steps without Cargo.toml, package.json name-format, mypy annotation, and prettier. All fixes committed (ef9cfe2). CI run 24002619986 in progress."
+    },
+    {
+      "id": "M-002",
+      "title": "Scaffold consistency hardening",
+      "status": "in_progress",
+      "completed_at": null,
+      "notes": "Aligned local verify behavior with scaffold mode, updated ADR lint to read docs/architecture/decisions, gated publish workflows when SDK folders are absent, and replaced critical template placeholders in policy/state/agent docs."
+    },
+    {
+      "id": "M-003",
+      "title": "Codex customization parity",
+      "status": "in_progress",
+      "completed_at": null,
+      "notes": "Replaced Claude-specific docs/config references with Codex equivalents, renamed CLAUDE.md to CODEX.md, migrated settings to .codex-config, preserved all verification and hook constraints, and completed a follow-up audit that corrected README verification-count drift."
+    },
+    {
+      "id": "M-004",
+      "title": "Vanta 文档、治理和架构基线",
+      "status": "in_progress",
+      "completed_at": null,
+      "notes": "将 Trellis scaffold 转为 Vanta 安全 Agent 平台文档基线，覆盖 PRD、MVP、用户工作流、安全边界、架构总览、ADR、测试手册、设计系统和 backlog。"
+    },
+    {
+      "id": "M-005",
+      "title": "Vanta Core 最小可运行骨架",
+      "status": "in_progress",
+      "completed_at": null,
+      "notes": "新增 Cargo workspace、vanta-core、vanta-cli、vanta init/status、.vanta workspace 初始化、session JSONL 和模块文档。"
+    }
+  ],
+  "features": [
+    {
+      "feature_id": "vanta-core-runtime",
+      "title": "Vanta Core runtime",
+      "status": "in_progress",
+      "milestone": "M-005",
+      "modules": ["apps/cli", "crates/core"]
+    },
+    {
+      "feature_id": "vanta-pwn-workflow",
+      "title": "Vanta Pwn workflow",
+      "status": "planned",
+      "milestone": "M-006",
+      "modules": ["tools/pwn-workers"]
+    },
+    {
+      "feature_id": "vanta-tui-workbench",
+      "title": "Vanta TUI workbench",
+      "status": "planned",
+      "milestone": "M-005",
+      "modules": ["packages/tui"]
+    }
+  ],
+  "change_intents": [
+    {
+      "id": "CI-004",
+      "description": "Update governance policy to allow API key storage only under $HOME/.vanta/ while keeping repository, database, log, report, state-file, and shared-artifact storage forbidden.",
+      "status": "in_progress",
+      "created_at": "2026-04-26T11:55:11Z",
+      "resolved_at": null
+    },
+    {
+      "id": "CI-005",
+      "description": "Convert Trellis scaffold documentation into the Vanta product, architecture, safety, test, design, and roadmap baseline.",
+      "status": "in_progress",
+      "created_at": "2026-04-26T11:55:11Z",
+      "resolved_at": null
+    },
+    {
+      "id": "CI-006",
+      "description": "Implement the first runnable Vanta Core skeleton with Cargo workspace, vanta init/status, workspace metadata, and session event files.",
+      "status": "in_progress",
+      "created_at": "2026-04-26T11:55:11Z",
+      "resolved_at": null
+    }
+  ]
+}
